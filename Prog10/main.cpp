@@ -17,6 +17,7 @@ const unsigned KBleu    (34);
 const unsigned KMAgenta (35);
 const unsigned KCyan    (36);
 const unsigned KNbCandies (9);
+const unsigned KImpossible(0);
 
 void couleur (const unsigned & coul) {
     cout << "\033[" << coul <<"m";
@@ -82,27 +83,92 @@ void makeAMove (mat & grid, const maPosition & pos, const char & direction) {
 
 bool atLeastThreeInAColumn (const mat & grid, maPosition & pos, unsigned & howMany) {
     bool found = false;
-    howMany = 0;
-    for (size_t i(1); i < grid.size(); ++i) {
-        if (grid[i][pos.abs] == grid[i-1][pos.abs]) {
-            howMany+=1;
-            if (i==grid.size()-1) howMany+=1;
-        } else {
-            howMany=0;
+    for (size_t col(0); col < grid.size() && !found; ++col) {
+        unsigned count(1);
+        for (size_t row(0); row < grid.size()-1 && !found; ++row) {
+            if(grid[row][col] == grid[row+1][col]) {
+                count++;
+            } else {
+                if (count >= 3) {
+                    pos.abs = col;
+                    pos.ord = row - count+1;
+                    howMany = count;
+                    found = true;
+                }
+                count = 1;
+            }
         }
-        if (howMany>=3) found = true;
+
+        if (!found && count>=3) {
+            pos.abs = col;
+            pos.ord = grid.size() - count;
+            howMany = count;
+            found = true;
+        }
     }
     return found;
 }
 
+bool atLeastThreeInARow (const mat & grid, maPosition & pos, unsigned & howMany) {
+    bool found = false;
+    for (size_t row(0); row < grid.size() && !found; ++row) {
+        unsigned count(1);
+        for (size_t col(0); col < grid.size()-1 && !found; ++col) {
+            if(grid[row][col] == grid[row][col+1]) {
+                count++;
+            } else {
+                if (count >= 3) {
+                    pos.abs = col - count+1;
+                    pos.ord = row;
+                    howMany = count;
+                    found = true;
+                }
+                count = 1;
+            }
+        }
+
+        if (!found && count>=3) {
+            pos.abs = grid.size() - count;
+            pos.ord = row;
+            howMany = count;
+            found = true;
+        }
+    }
+    return found;
+}
+
+void removalInColumn (mat & grid, const maPosition & pos, unsigned  howMany) {
+    for (int row(pos.ord - 1); row >= 0; --row) {
+        grid[row + howMany][pos.abs] = grid[row][pos.abs];
+    }
+    for (size_t row(0); row < howMany; ++row) {
+        grid[row][pos.abs] = KImpossible;
+    }
+}
+
+void removalInRow (mat & grid, const maPosition & pos, unsigned  howMany) {
+    for (size_t i(0); i < howMany; ++i) {
+        maPosition deplacementCol;
+        deplacementCol.abs = pos.abs + i;
+        deplacementCol.ord = pos.ord;
+        removalInColumn(grid, deplacementCol, 1);
+    }
+}
+
 int main()
 {
+    srand(time(NULL));
+
     mat grid;
-    initGrid(grid, 5);
-    displayGrid(grid);
-    while (true) {
-        unsigned howMany;
+    initGrid(grid, 3);
+    unsigned nbCoups(0);
+    unsigned howMany(0);
+    while (nbCoups<10) {
+        displayGrid(grid);
+        cout << "Choisir la position, puis entrez 'z' 'q' 's' ou 'd' selon dans quelle direction vous voulez bouger" << endl;
         maPosition position;
+        position.ord=0;
+        position.abs=0;
         cout << "entrez abscisse ";
         cin >> position.abs;
         cout << "entrez ordoneee ";
@@ -111,8 +177,11 @@ int main()
         cin >> saisie;
         if (saisie == 'e') break;
         makeAMove(grid, position, saisie);
-        displayGrid(grid);
-        cout << atLeastThreeInAColumn(grid, position, howMany) << endl;
+            if(atLeastThreeInAColumn(grid, position, howMany)) {
+                removalInColumn(grid, position, howMany);
+            } else if(atLeastThreeInARow(grid, position, howMany)) {
+                removalInRow(grid, position, howMany);
+            }
     }
     return 0;
 }
