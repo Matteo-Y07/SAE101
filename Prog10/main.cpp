@@ -1,6 +1,9 @@
 #include <iostream>
 #include <stdlib.h>
 #include <vector>
+#include <algorithm>
+#include <thread> // Pour sleep_for
+#include <chrono> // Pour les unités de temps (ms, s)
 
 using namespace std;
 
@@ -18,6 +21,7 @@ const unsigned KMAgenta (35);
 const unsigned KCyan    (36);
 const unsigned KNbCandies (9);
 const unsigned KImpossible(0);
+const string KSymboles("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
 void couleur (const unsigned & coul) {
     cout << "\033[" << coul <<"m";
@@ -49,10 +53,20 @@ void  displayGrid (const mat & grid) {
     clearScreen();
     couleur(KReset);
     couleurFond(KReset);
+    cout << " a   ";
+    for (unsigned i(0); i < grid.size(); ++i) {
+        cout << i << ' ';
+    }
+    cout << endl << 'o' << endl;
     for (size_t i(0); i < grid.size(); ++i) {
+        couleur(KReset);
+        cout << i << "    ";
         for (size_t j(0); j < grid.size(); j++) {
             if (!(1 <= grid[i][j] && grid[i][j] <= KNbCandies)) cout << "  ";
-            else cout << grid[i][j] << ' ';
+            else {
+                couleur(31 + grid[i][j]%6);
+                cout << KSymboles[grid[i][j]] << ' ';
+            }
         }
         cout << endl;
     }
@@ -66,7 +80,7 @@ void makeAMove (mat & grid, const maPosition & pos, const char & direction) {
     }
     if (direction == 'q' && pos.abs != 0) {
         unsigned temp (grid[pos.ord][pos.abs]);
-        grid[pos.ord][pos.abs] = grid[pos.ord-1][pos.abs-1];
+        grid[pos.ord][pos.abs] = grid[pos.ord][pos.abs-1];
         grid[pos.ord][pos.abs-1] = temp;
     }
     if (direction == 's' && pos.ord != grid.size()-1) {
@@ -86,7 +100,7 @@ bool atLeastThreeInAColumn (const mat & grid, maPosition & pos, unsigned & howMa
     for (size_t col(0); col < grid.size() && !found; ++col) {
         unsigned count(1);
         for (size_t row(0); row < grid.size()-1 && !found; ++row) {
-            if(grid[row][col] == grid[row+1][col]) {
+            if(grid[row][col] != KImpossible && grid[row][col] == grid[row+1][col]) {
                 count++;
             } else {
                 if (count >= 3) {
@@ -114,7 +128,7 @@ bool atLeastThreeInARow (const mat & grid, maPosition & pos, unsigned & howMany)
     for (size_t row(0); row < grid.size() && !found; ++row) {
         unsigned count(1);
         for (size_t col(0); col < grid.size()-1 && !found; ++col) {
-            if(grid[row][col] == grid[row][col+1]) {
+            if(grid[row][col] != KImpossible && grid[row][col] == grid[row][col+1]) {
                 count++;
             } else {
                 if (count >= 3) {
@@ -146,7 +160,7 @@ void removalInColumn (mat & grid, const maPosition & pos, unsigned  howMany) {
     }
 }
 
-void removalInRow (mat & grid, const maPosition & pos, unsigned  howMany) {
+void removalInRow (mat & grid, const maPosition & pos, unsigned howMany) {
     for (size_t i(0); i < howMany; ++i) {
         maPosition deplacementCol;
         deplacementCol.abs = pos.abs + i;
@@ -155,33 +169,64 @@ void removalInRow (mat & grid, const maPosition & pos, unsigned  howMany) {
     }
 }
 
-int main()
-{
-    srand(time(NULL));
+void refillGrid(mat & grid) {
+    for (size_t i = 0; i < grid.size(); ++i) {
+        auto it = find(grid[i].begin(), grid[i].end(), KImpossible);
 
-    mat grid;
-    initGrid(grid, 3);
-    unsigned nbCoups(0);
-    unsigned howMany(0);
-    while (nbCoups<10) {
+        while (it != grid[i].end()) {
+            *it = 1 + rand() % KNbCandies; // *it permet de récupérer l'objet en lui même, alors que it est juste un pointeur vers cet objet.
+
+            it = find(it, grid[i].end(), KImpossible);
+        }
+    }
+}
+
+void removalAllCombos(mat & grid, maPosition & position, unsigned howMany, unsigned & score) {
+    unsigned nbCombos(0);
+    bool combo;
+    do {
+        combo = false;
+        if (atLeastThreeInAColumn(grid, position, howMany)) {
+            ++nbCombos;
+            score += howMany * grid[position.ord][position.abs] * nbCombos;
+            removalInColumn(grid, position, howMany);
+            combo = true;
+        }
+        if (atLeastThreeInARow(grid, position, howMany)) {
+            ++nbCombos;
+            score += howMany * grid[position.ord][position.abs] * nbCombos;
+            removalInRow(grid, position, howMany);
+            combo = true;
+        }
         displayGrid(grid);
-        cout << "Choisir la position, puis entrez 'z' 'q' 's' ou 'd' selon dans quelle direction vous voulez bouger" << endl;
-        maPosition position;
-        position.ord=0;
-        position.abs=0;
-        cout << "entrez abscisse ";
-        cin >> position.abs;
-        cout << "entrez ordoneee ";
-        cin >> position.ord;
+        cout << "Combo x" << nbCombos << endl;
+        this_thread::sleep_for(chrono::milliseconds(500)); //sur internet : gemini (trouver lien vers un vrai site plutot que IA)
+        refillGrid(grid);
+    } while (combo);
+}
+
+int main() {
+    srand(time(NULL));
+    mat grid;
+    maPosition position;
+    unsigned howMany;
+    initGrid(grid, 5); //Permet de s'assurer de créer une grille qui ne contient pas initialement de combo
+    unsigned nbCoups(0), score(0);
+    removalAllCombos(grid, position, howMany, score);
+
+    while (nbCoups < 10) {
+        displayGrid(grid);
+        couleur(KReset);
+        cout << "Coups restants : " << 10 - nbCoups << " | SCORE : " << score << endl;
+        cout << "Saisir : abs ord direction (ex: 2 3 z) : ";
         char saisie;
-        cin >> saisie;
+        cin >> position.abs >> position.ord >> saisie;
         if (saisie == 'e') break;
         makeAMove(grid, position, saisie);
-            if(atLeastThreeInAColumn(grid, position, howMany)) {
-                removalInColumn(grid, position, howMany);
-            } else if(atLeastThreeInARow(grid, position, howMany)) {
-                removalInRow(grid, position, howMany);
-            }
+        nbCoups++;
+
+        // On traite les alignements tant qu'il y en a
+        removalAllCombos(grid, position, howMany, score);
     }
     return 0;
 }
