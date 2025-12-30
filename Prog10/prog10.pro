@@ -4,4 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        CandyCrushHeader.cpp \
         main.cpp
+
+HEADERS += \
+    CandyCrushHeader.h
