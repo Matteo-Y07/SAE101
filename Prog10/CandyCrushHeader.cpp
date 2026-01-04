@@ -46,7 +46,7 @@ void initGrid (mat & grid, const size_t & matSize) {
         grid.emplace_back(ligne);
     }
 }
-
+// fonction qui permet d'afficher la grille
 void  displayGrid (const mat & grid) {
     clearScreen();
     couleur(KReset);
@@ -69,7 +69,7 @@ void  displayGrid (const mat & grid) {
         cout << endl;
     }
 }
-
+// fonction qui permet au jouer de déplacer un chiffre
 void makeAMove (mat & grid, const maPosition & pos, const char & direction) {
     if (direction == 'z' && pos.ord != 0) {
         unsigned temp (grid[pos.ord][pos.abs]);
@@ -92,7 +92,7 @@ void makeAMove (mat & grid, const maPosition & pos, const char & direction) {
         grid[pos.ord][pos.abs+1] = temp;
     }
 }
-
+// fonction qui permet de repérer les combots en colonne
 bool atLeastThreeInAColumn (const mat & grid, maPosition & pos, unsigned & howMany) {
     bool found = false;
     for (size_t col(0); col < grid.size() && !found; ++col) {
@@ -120,7 +120,7 @@ bool atLeastThreeInAColumn (const mat & grid, maPosition & pos, unsigned & howMa
     }
     return found;
 }
-
+// fonction qui permet de repérer les combots en ligne
 bool atLeastThreeInARow (const mat & grid, maPosition & pos, unsigned & howMany) {
     bool found = false;
     for (size_t row(0); row < grid.size() && !found; ++row) {
@@ -166,7 +166,7 @@ void removalInRow (mat & grid, const maPosition & pos, unsigned howMany) {
         removalInColumn(grid, deplacementCol, 1);
     }
 }
-
+// fonction qui permet de recharger la grille
 void refillGrid(mat & grid) {
     for (size_t i = 0; i < grid.size(); ++i) {
         auto it = find(grid[i].begin(), grid[i].end(), KImpossible);
@@ -178,7 +178,7 @@ void refillGrid(mat & grid) {
         }
     }
 }
-
+// fonction qui permet d'enlever tout les combots lorsque la grille se charge initialement afin d'éviter de gagner des points sans rien faire
 void removalAllCombos(mat & grid, maPosition & position, unsigned howMany, unsigned & score, unsigned & NbCoups) {
     unsigned nbCombos(0);
     bool combo;
@@ -214,7 +214,7 @@ void removalAllCombos(mat & grid, maPosition & position, unsigned howMany, unsig
 }
 
 // histoire
-
+// fonction qui permet d'afficher les cinématiques pour le mode histoire
 void cinematique(const string & texte, unsigned vitesse) {
     couleur(KJaune);
     for (char c : texte) {
@@ -224,7 +224,7 @@ void cinematique(const string & texte, unsigned vitesse) {
     cout << endl << endl;
     this_thread::sleep_for(chrono::seconds(1));
 }
-
+// fonction qui permet d'afficher le boss lors du mode histoire
 void afficherBoss(const string & nom) {
     clearScreen();
     couleur(KRouge);
@@ -234,3 +234,4 @@ void afficherBoss(const string & nom) {
     couleur(KReset);
     this_thread::sleep_for(chrono::seconds(2));
 }
+
