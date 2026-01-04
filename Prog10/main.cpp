@@ -2,6 +2,7 @@
  * @file main.cpp
  * @author Gabriel Gouin
  * @author Matteo Yanni
+ * @brief fichier contenant le main
  * @date 04/01/2026
 */
 
