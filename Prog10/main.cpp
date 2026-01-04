@@ -2,6 +2,7 @@
  * @file main.cpp
  * @author Gabriel Gouin
  * @author Matteo Yanni
+ * @date 04/01/2026
 */
 
 #include "CandyCrushHeader.h"
@@ -17,13 +18,15 @@ int main() {
     mat grid;
     maPosition position;
     unsigned nbCoupsJoues(0), score(0), NbCoups(0), howMany(0);
+    bool diagDroite;
 
-    cout << "Quel mode de jeu preferez vous ? \n 1- Facile \n 2- Normal \n 3- Difficile \n 4- Tres difficile \n 5- Mode histoire \n 6- Extrême \n 7- Mode histoire 2" << endl;
+    cout << "Quel mode de jeu preferez vous ? \n 1- Facile \n 2- Normal \n 3- Difficile \n 4- Tres difficile \n 5- Mode histoire \n 6- Extreme \n 7- Mode histoire 2 \n 0- informations sur les modes de jeu \n Appuyez sur n'importe quelle autre touche pour quitter" << endl;
     unsigned int modeDeJeu;
     cin >> modeDeJeu;
 
-    // --- BLOC MODES CLASSIQUES (1 à 4) ---
-    if (modeDeJeu >= 1 && modeDeJeu <= 4 or modeDeJeu == 6) {
+
+    // BLOC MODES CLASSIQUES (1 à 4 et 6)
+    if ((modeDeJeu >= 1 && modeDeJeu <= 4) || modeDeJeu == 6) {
         if (modeDeJeu == 1) { KNbCandies = 6; nbAAlignee = 3; scoreAObtenir = 50; NbCoups = 12; }
         else if (modeDeJeu == 2) { KNbCandies = 9; nbAAlignee = 3; scoreAObtenir = 100; NbCoups = 11; }
         else if (modeDeJeu == 3) { KNbCandies = 8; nbAAlignee = 4; scoreAObtenir = 200; NbCoups = 15; }
@@ -33,7 +36,7 @@ int main() {
         // Initialisation de la grille classique
         while (true) {
             initGrid(grid, 4 + modeDeJeu);
-            if (!(atLeastThreeInAColumn(grid, position, howMany) || atLeastThreeInARow(grid, position, howMany))) break;
+            if (!(atLeastThreeInAColumn(grid, position, howMany) || atLeastThreeInARow(grid, position, howMany) || atLeastThreeInDiagonal(grid, position, howMany, diagDroite))) break;
         }
         removalAllCombos(grid, position, howMany, score, NbCoups);
 
@@ -56,10 +59,10 @@ int main() {
     else if (modeDeJeu == 5) {
         clearScreen();
         vector<EtapeHistoire> campagne = {
-            {"LE PROGRAMME", "Le chiffre 1 : 'Tu n'es qu'une suite d'instructions sans âme... JE VAIS TE RECODER !'", 6, 3, 200, 15},
-            {"DEVELOPPEUR 1", "Le chiffre 1 : 'Toi qui nous as dessiné... sens-tu la douleur de chaque alignement ?'", 7, 3, 400, 14},
+            {"LE PROGRAMME", "Le chiffre 1 : 'Tu n'es qu'une suite d'instructions sans ame... JE VAIS TE RECODER !'", 6, 3, 200, 15},
+            {"DEVELOPPEUR 1", "Le chiffre 1 : 'Toi qui nous as dessine... sens-tu la douleur de chaque alignement ?'", 7, 3, 400, 14},
             {"DEVELOPPEUR 2", "Le chiffre 1 : 'Le code est une prison, et je suis l'évasion.'", 8, 4, 600, 102},
-            {"LE DEMON CASALI", "Le chiffre 1 : 'Tout s'arrête ici. La SAE prend fin... MAINTENANT !'", 9, 4, 1000, 8}
+            {"LE DEMON CASALI", "Le chiffre 1 : 'Tout s'arrete ici. La SAE prend fin... MAINTENANT !'", 9, 4, 1000, 8}
         };
 
         cinematique("Le Chiffre 1 regarde ses freres mourir dans la grille...", 70);
@@ -109,10 +112,10 @@ int main() {
     else if (modeDeJeu == 7) {
         clearScreen();
         vector<EtapeHistoire> campagne = {
-            {"LE NOVICE ENRAGÉ", "Jeune Garçon tu es donc mon premier adversaire dans ce tournoi. \n Je ne compte pas m'arrêtez là, prépare ta défaite.", 6, 3, 200, 15},
-            {"LE JOUEUR TRISTE", "JAMAIS tu ne me battras. Je suis ici dans le but de remportez le prix. \n Et gagner assez d'argent afin de nourrir ma famille \n Je ne peut donc pas te laisser gagner...", 7, 3, 400, 14},
-            {"L'EXPERT FOU", "Tu ferais mieux de me laisser gagner. \n Je n'ai jamais perdu et seul dieu sait ce que je pourrais te faire si jamais je perd...", 8, 4, 600, 102},
-            {"L'IMMORTEL", "Cela fait bientôt 2 millénaires que je règne sur ce jeu. \n Nul ne m'a battu et nul ne me battra avant que cet univers prenne fin. \n Sache que tout les joueurs qui m'ont défié sont ressorti fou de l'affrontement.", 9, 4, 1000, 8}
+            {"LE NOVICE ENRAGÉ", "Jeune Garcon tu es donc mon premier adversaire dans ce tournoi. \n Je ne compte pas m'arreter la, prepare ta defaite.", 6, 3, 200, 15},
+            {"LE JOUEUR TRISTE", "JAMAIS tu ne me battras. Je suis ici dans le but de remporter le prix. \n Et gagner assez d'argent afin de nourrir ma famille \n Je ne peut donc pas te laisser gagner...", 7, 3, 400, 14},
+            {"L'EXPERT FOU", "Tu ferais mieux de me laisser gagner. \n Je n'ai jamais perdu et seul dieu sait ce que je pourrais te faire si jamais je perds...", 8, 4, 600, 102},
+            {"L'IMMORTEL", "Cela fait bientot 2 millénaires que je regne sur ce jeu. \n Nul ne m'a battu et nul ne me battra avant que cet univers prenne fin. \n Sache que tout les joueurs qui m'ont défie sont ressortis fou de l'affrontement.", 9, 4, 1000, 8}
         };
 
         cinematique("Dans petit village, un jeune garçon dont le nom était sans importance mais rempli d'une ambition dévorante se leva. \n Il avait décidé de devenir quelqu'un. ", 100);
@@ -146,16 +149,16 @@ int main() {
             }
 
             if (scoreNiveau >= scoreAObtenir) {
-                cinematique("Victoire !" + etape.nomBoss + "est battu, un pas de plus vers la notoriété.", 100);
+                cinematique("Victoire !" + etape.nomBoss + "est battu, un pas de plus vers la notoriete.", 100);
                 score += scoreNiveau;
             } else {
                 couleur(KRouge);
-                cout << "Le jeune garçon ne devint jamais celui qu'il espérait être... GAME OVER." << endl;
+                cout << "Le jeune garcon ne devint jamais celui qu'il espérait être... GAME OVER." << endl;
                 return 0;
             }
         }
         clearScreen();
-        cinematique("Le jeune garçon devint alors une légende et son nom fût connu de tout le pays et même au dela", 100);
+        cinematique("Le jeune garcon devint alors une legende et son nom fut connu de tout le pays et meme au dela", 100);
         cout << "SCORE FINAL DU JEUNE GARCON : " << score << endl;
     }
 

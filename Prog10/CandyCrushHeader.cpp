@@ -18,18 +18,15 @@ void clearScreen () {
 }
 
 const unsigned KReset   (0);
-const unsigned KNoir    (30);
 const unsigned KRouge   (31);
-const unsigned KVert    (32);
 const unsigned KJaune   (33);
-const unsigned KBleu    (34);
-const unsigned KMAgenta (35);
 const unsigned KCyan    (36);
 const unsigned KImpossible(0);
 const string KSymboles("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 int unsigned KNbCandies;
 int unsigned nbAAlignee;
 int unsigned scoreAObtenir;
+bool diagDroite;
 
 void couleur (const unsigned & coul) {
     cout << "\033[" << coul <<"m";
@@ -155,6 +152,53 @@ bool atLeastThreeInARow (const mat & grid, maPosition & pos, unsigned & howMany)
     return found;
 }
 
+// fonction pour gerer les combos en diagonale.
+bool atLeastThreeInDiagonal(const mat & grid, maPosition & pos, unsigned & howMany, bool & diagDroite) {
+    bool found = false;
+    const size_t taille = grid.size();
+
+    // ↘ diagonales
+    for (size_t row = 0; row < taille && !found; ++row) {
+        for (size_t col = 0; col < taille && !found; ++col) {
+            unsigned count = 1;
+            while (row + count < taille && col + count < taille &&
+                   grid[row + count][col + count] == grid[row + count - 1][col + count - 1] &&
+                   grid[row + count][col + count] != KImpossible) {
+                count++;
+            }
+            if (count >= nbAAlignee) {
+                pos.ord = row;
+                pos.abs = col;
+                howMany = count;
+                diagDroite = true; // diagonale ↘
+                found = true;
+            }
+        }
+    }
+
+    // ↙ diagonales
+    for (size_t row = 0; row < taille && !found; ++row) {
+        for (size_t col = nbAAlignee - 1; col < taille && !found; ++col) {
+            unsigned count = 1;
+            while (row + count < taille && col >= count &&
+                   grid[row + count][col - count] == grid[row + count - 1][col - count + 1] &&
+                   grid[row + count][col - count] != KImpossible) {
+                count++;
+            }
+            if (count >= nbAAlignee) {
+                pos.ord = row;
+                pos.abs = col;
+                howMany = count;
+                diagDroite = false; // diagonale ↙
+                found = true;
+            }
+        }
+    }
+
+    return found;
+}
+
+
 void removalInColumn (mat & grid, const maPosition & pos, unsigned  howMany) {
     for (int row(pos.ord - 1); row >= 0; --row) {
         grid[row + howMany][pos.abs] = grid[row][pos.abs];
@@ -172,6 +216,32 @@ void removalInRow (mat & grid, const maPosition & pos, unsigned howMany) {
         removalInColumn(grid, deplacementCol, 1);
     }
 }
+
+void removalInDiagonal(mat & grid, const maPosition & position, unsigned howMany, bool diagDroite) {
+    if (diagDroite) {
+        for (unsigned i = 0; i < howMany; ++i)
+            grid[position.ord + i][position.abs + i] = KImpossible;
+        for (unsigned i = 0; i < howMany; ++i) {
+            maPosition colPos;
+            colPos.ord = position.ord + i;
+            colPos.abs = position.abs + i;
+            removalInColumn(grid, colPos, 1); // fait tomber la case
+        }
+    } else {
+        for (unsigned i = 0; i < howMany; ++i)
+            grid[position.ord + i][position.abs - i] = KImpossible;
+        for (unsigned i = 0; i < howMany; ++i) {
+            maPosition colPos;
+            colPos.ord = position.ord + i;
+            colPos.abs = position.abs - i;
+            removalInColumn(grid, colPos, 1); // fait tomber la case
+        }
+    }
+}
+
+
+
+
 // fonction qui permet de recharger la grille
 void refillGrid(mat & grid) {
     for (size_t i = 0; i < grid.size(); ++i) {
@@ -201,7 +271,7 @@ void removalAllCombos(mat & grid, maPosition & position, unsigned howMany, unsig
             cout << "Combo x" << nbCombos << endl;
             cout << "+" << valeurAAjouter << " Score :" << score << endl;
             if (nbCombos != 0 && nbCombos%3 == 0) {NbCoups += nbCombos/3; cout << "+ " << nbCombos/3 << " coup(s) !";}
-            this_thread::sleep_for(chrono::milliseconds(1000)); //sur internet
+            this_thread::sleep_for(chrono::milliseconds(1000)); // trouvé sur https://en.cppreference.com/w/cpp/thread/sleep_for.html
         }
         if (atLeastThreeInARow(grid, position, howMany)) {
             ++nbCombos;
@@ -214,6 +284,25 @@ void removalAllCombos(mat & grid, maPosition & position, unsigned howMany, unsig
             cout << "+" << valeurAAjouter << " Score :" << score << endl;
             if (nbCombos != 0 && nbCombos%3 == 0) {NbCoups += nbCombos/3; cout << "+ " << nbCombos/3 << " coups !";}
             this_thread::sleep_for(chrono::milliseconds(1000)); //sur internet
+        }
+        if (atLeastThreeInDiagonal(grid, position, howMany, diagDroite)) {
+            ++nbCombos;
+            valeurAAjouter = howMany * grid[position.ord][position.abs] * nbCombos;
+            score += valeurAAjouter;
+
+            removalInDiagonal(grid, position, howMany, diagDroite);
+            combo = true;
+
+            displayGrid(grid);
+            cout << "Combo x" << nbCombos << endl;
+            cout << "+" << valeurAAjouter << " Score :" << score << endl;
+
+            if (nbCombos != 0 && nbCombos % 3 == 0) {
+                NbCoups += nbCombos / 3;
+                cout << "+ " << nbCombos / 3 << " coups !";
+            }
+
+            this_thread::sleep_for(chrono::milliseconds(1000));
         }
         refillGrid(grid);
     } while (combo); // utilisation de do .. while pour executer la boucle au moins une fois

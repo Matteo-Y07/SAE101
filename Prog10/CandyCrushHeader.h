@@ -70,6 +70,10 @@ bool atLeastThreeInAColumn(const mat & grid, maPosition & pos, unsigned & howMan
  */
 bool atLeastThreeInARow(const mat & grid, maPosition & pos, unsigned & howMany);
 /**
+ * @brief permet de trouver les combos en diagonale
+ */
+bool atLeastThreeInDiagonal (const mat & grid, maPosition & pos, unsigned & howMany, bool & diagDroite);
+/**
  * @brief permet de gérer la suppression de chiffre verticalement
  */
 void removalInColumn(mat & grid, const maPosition & pos, unsigned howMany);
@@ -77,6 +81,10 @@ void removalInColumn(mat & grid, const maPosition & pos, unsigned howMany);
  * @brief permet de gérer la suppression de chiffre horizontalement
  */
 void removalInRow(mat & grid, const maPosition & pos, unsigned howMany);
+/**
+ * @brief permet de gérer la suppression de chiffre en diagonale
+ */
+void removalInDiagonal (mat & grid, const maPosition & pos, unsigned howMany, unsigned & score);
 /**
  * @brief permet de recharger la grille
  */
