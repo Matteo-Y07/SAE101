@@ -14,6 +14,10 @@
 typedef std::vector<unsigned> line;
 typedef std::vector<line> mat;
 
+/**
+ * @struct maPosition
+ * @brief Représente les coordonnées dans la grille
+ */
 struct maPosition {
     unsigned abs;
     unsigned ord;
@@ -88,5 +92,6 @@ void afficherBoss(const std::string & nom);
 
 
 #endif // CANDYCRUSHHEADER_H
+
 
 
