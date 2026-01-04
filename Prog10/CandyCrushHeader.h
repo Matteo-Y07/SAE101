@@ -1,3 +1,9 @@
+/**
+ * @file CandyCrushHeader.h
+ * @author Gabriel Gouin
+ * @author Matteo Yanni
+*/
+
 #ifndef CANDYCRUSHHEADER_H
 #define CANDYCRUSHHEADER_H
 
@@ -82,4 +88,5 @@ void afficherBoss(const std::string & nom);
 
 
 #endif // CANDYCRUSHHEADER_H
+
 
