@@ -1,0 +1,27 @@
+var _candy_crush_header_8h =
+[
+    [ "maPosition", "structma_position.html", "structma_position" ],
+    [ "EtapeHistoire", "struct_etape_histoire.html", "struct_etape_histoire" ],
+    [ "line", "_candy_crush_header_8h.html#a24deb4183aeeb5d044e694c4f977312c", null ],
+    [ "mat", "_candy_crush_header_8h.html#a557e84addc0de9cc56c741e937728785", null ],
+    [ "afficherBoss", "_candy_crush_header_8h.html#a6e90353bfbade2a62accc7323c97c750", null ],
+    [ "atLeastThreeInAColumn", "_candy_crush_header_8h.html#aee7483c5715afce5b8d044329f2d9fdb", null ],
+    [ "atLeastThreeInARow", "_candy_crush_header_8h.html#a592d3742cedb5bd0462cc8ebe9e79131", null ],
+    [ "cinematique", "_candy_crush_header_8h.html#a8af09a688c1b1491f563ee5c6b998966", null ],
+    [ "clearScreen", "_candy_crush_header_8h.html#a9d7e8af417b6d543da691e9c0e2f6f9f", null ],
+    [ "couleur", "_candy_crush_header_8h.html#ae241cf89d39423f89bb8e65688e4c031", null ],
+    [ "displayGrid", "_candy_crush_header_8h.html#ac0aacda61353cef121ada8614de65a16", null ],
+    [ "initGrid", "_candy_crush_header_8h.html#a4451b6adfa9974f79ef15963a4e0c6cc", null ],
+    [ "makeAMove", "_candy_crush_header_8h.html#a128c26fbda3f47062ea1ab56e54ae54d", null ],
+    [ "refillGrid", "_candy_crush_header_8h.html#a0ae12bcad50ec7e8d1bf1f0dc2c82e54", null ],
+    [ "removalAllCombos", "_candy_crush_header_8h.html#a553b3b7d171a5ffe67d5bcf4f693d1e2", null ],
+    [ "removalInColumn", "_candy_crush_header_8h.html#a4ad87ec3a96e07ac5000e8e4e38ece6f", null ],
+    [ "removalInRow", "_candy_crush_header_8h.html#a4e37bf8b2ef1042c1631bf9d394ebd0d", null ],
+    [ "KCyan", "_candy_crush_header_8h.html#af35e416722e3db611b7edcbbf79bbd8f", null ],
+    [ "KJaune", "_candy_crush_header_8h.html#a6404088f47e6c83f21ed804c5e03b0a2", null ],
+    [ "KNbCandies", "_candy_crush_header_8h.html#a8296162e41246426919e2e8b5b48029a", null ],
+    [ "KReset", "_candy_crush_header_8h.html#ac49e05f006202e2a4ffdb5bad32a3005", null ],
+    [ "KRouge", "_candy_crush_header_8h.html#aeeaaa3b5271d6ea1c4803fffbeeaa118", null ],
+    [ "nbAAlignee", "_candy_crush_header_8h.html#a8ca106a837236418486962ca4474583b", null ],
+    [ "scoreAObtenir", "_candy_crush_header_8h.html#adb9f5f2e2773a06428884fbcaab62751", null ]
+];
