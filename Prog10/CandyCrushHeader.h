@@ -23,6 +23,10 @@ struct maPosition {
     unsigned ord;
 };
 
+/**
+ * @struct EtapeHistoire
+ * @brief contient les paramètres et le scénario du niveau du mode histoire
+ */
 struct EtapeHistoire {
     std::string nomBoss;
     std::string dialogue;
@@ -92,6 +96,7 @@ void afficherBoss(const std::string & nom);
 
 
 #endif // CANDYCRUSHHEADER_H
+
 
 
 
