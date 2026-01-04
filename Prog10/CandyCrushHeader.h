@@ -2,6 +2,7 @@
  * @file CandyCrushHeader.h
  * @author Gabriel Gouin
  * @author Matteo Yanni
+ * @brief fichier contenant la déclaration des struct et fonctions
 */
 
 #ifndef CANDYCRUSHHEADER_H
@@ -104,6 +105,7 @@ void afficherBoss(const std::string & nom);
 
 
 #endif // CANDYCRUSHHEADER_H
+
 
 
 
