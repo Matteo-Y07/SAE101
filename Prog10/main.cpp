@@ -29,7 +29,7 @@ int main() {
     if ((modeDeJeu >= 1 && modeDeJeu <= 4) || modeDeJeu == 6) {
         if (modeDeJeu == 1) { KNbCandies = 6; nbAAlignee = 3; scoreAObtenir = 70; NbCoups = 12; }
         else if (modeDeJeu == 2) { KNbCandies = 9; nbAAlignee = 3; scoreAObtenir = 130; NbCoups = 11; }
-        else if (modeDeJeu == 3) { KNbCandies = 8; nbAAlignee = 4; scoreAObtenir = 200; NbCoups = 13; }
+        else if (modeDeJeu == 3) { KNbCandies = 8; nbAAlignee = 4; scoreAObtenir = 170; NbCoups = 13; }
         else if (modeDeJeu == 4) { KNbCandies = 9; nbAAlignee = 4; scoreAObtenir = 350; NbCoups = 22; }
         else if (modeDeJeu == 6) { KNbCandies = 15; nbAAlignee = 4; scoreAObtenir = 900; NbCoups = 50; }
         clearScreen();
