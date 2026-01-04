@@ -1,3 +1,9 @@
+/**
+ * @file CandyCrushHeader.cpp
+ * @author Gabriel Gouin
+ * @author Matteo Yanni
+*/
+
 #include "CandyCrushHeader.h"
 #include <iostream>
 #include <stdlib.h>
@@ -12,12 +18,8 @@ void clearScreen () {
 }
 
 const unsigned KReset   (0);
-const unsigned KNoir    (30);
 const unsigned KRouge   (31);
-const unsigned KVert    (32);
 const unsigned KJaune   (33);
-const unsigned KBleu    (34);
-const unsigned KMAgenta (35);
 const unsigned KCyan    (36);
 const unsigned KImpossible(0);
 const string KSymboles("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ");
@@ -46,7 +48,7 @@ void initGrid (mat & grid, const size_t & matSize) {
         grid.emplace_back(ligne);
     }
 }
-
+// fonction qui permet d'afficher la grille
 void  displayGrid (const mat & grid) {
     clearScreen();
     couleur(KReset);
@@ -69,7 +71,7 @@ void  displayGrid (const mat & grid) {
         cout << endl;
     }
 }
-
+// fonction qui permet au jouer de déplacer un chiffre
 void makeAMove (mat & grid, const maPosition & pos, const char & direction) {
     if (direction == 'z' && pos.ord != 0) {
         unsigned temp (grid[pos.ord][pos.abs]);
@@ -92,7 +94,7 @@ void makeAMove (mat & grid, const maPosition & pos, const char & direction) {
         grid[pos.ord][pos.abs+1] = temp;
     }
 }
-
+// fonction qui permet de repérer les combots en colonne
 bool atLeastThreeInAColumn (const mat & grid, maPosition & pos, unsigned & howMany) {
     bool found = false;
     for (size_t col(0); col < grid.size() && !found; ++col) {
@@ -120,7 +122,7 @@ bool atLeastThreeInAColumn (const mat & grid, maPosition & pos, unsigned & howMa
     }
     return found;
 }
-
+// fonction qui permet de repérer les combots en ligne
 bool atLeastThreeInARow (const mat & grid, maPosition & pos, unsigned & howMany) {
     bool found = false;
     for (size_t row(0); row < grid.size() && !found; ++row) {
@@ -149,6 +151,72 @@ bool atLeastThreeInARow (const mat & grid, maPosition & pos, unsigned & howMany)
     return found;
 }
 
+// fonction pour gerer les combos en diagonale.
+bool atLeastThreeInDiagonal (const mat & grid, maPosition & pos, unsigned & howMany) {
+    bool found = false;
+    const size_t size = grid.size();
+
+    // ↘ Diagonale haut-gauche a bas-droite
+    for (size_t row = 0; row < size && !found; ++row) {
+        for (size_t col = 0; col < size && !found; ++col) {
+            unsigned count = 1;
+            for (size_t i = 0; row + i + 1 < size && col + i + 1 < size && !found; ++i) {
+                if (grid[row + i][col + i] != KImpossible && grid[row + i][col + i] == grid[row + i + 1][col + i + 1])
+                {count++;} else {
+                    if (count >= nbAAlignee) {
+                        pos.abs = col;
+                        pos.ord = row;
+                        howMany = count;
+                        found = true;
+                    }
+                    count = 1;
+                }
+            }
+
+            if (!found && count >= nbAAlignee) {
+                pos.abs = col;
+                pos.ord = row;
+                howMany = count;
+                found = true;
+            }
+        }
+    }
+
+    // ↙ Diagonale haut-droite a bas-gauche
+    for (size_t row = 0; row < size && !found; ++row) {
+        for (size_t col = size - 1; col < size && !found; --col) {
+            unsigned count = 1;
+            for (size_t i = 0; row + i + 1 < size && col >= i + 1 && !found; ++i) {
+                if (grid[row + i][col - i] != KImpossible &&
+                    grid[row + i][col - i] ==
+                        grid[row + i + 1][col - i - 1]) {
+                    count++;
+                } else {
+                    if (count >= nbAAlignee) {
+                        pos.abs = col;
+                        pos.ord = row;
+                        howMany = count;
+                        found = true;
+                    }
+                    count = 1;
+                }
+            }
+
+            if (!found && count >= nbAAlignee) {
+                pos.abs = col;
+                pos.ord = row;
+                howMany = count;
+                found = true;
+            }
+
+            if (col == 0) break; // évite probleme underflow
+        }
+    }
+
+    return found;
+}
+
+
 void removalInColumn (mat & grid, const maPosition & pos, unsigned  howMany) {
     for (int row(pos.ord - 1); row >= 0; --row) {
         grid[row + howMany][pos.abs] = grid[row][pos.abs];
@@ -167,6 +235,31 @@ void removalInRow (mat & grid, const maPosition & pos, unsigned howMany) {
     }
 }
 
+void removalInDiagonal(mat & grid, const maPosition & position, unsigned howMany) {
+    const size_t taille_grille = grid.size();
+
+    // determiner le sens de la diagonale en regardant la case suivante
+    bool diagonaleDroite = false;
+    if (position.abs + 1 < taille_grille && position.ord + 1 < taille_grille &&
+        grid[position.ord + 1][position.abs + 1] == grid[position.ord][position.abs]) {
+        diagonaleDroite = true; // ↘
+    } else if (position.abs > 0 && position.ord + 1 < taille_grille &&
+               grid[position.ord + 1][position.abs - 1] == grid[position.ord][position.abs]) {
+        diagonaleDroite = false; // ↙
+    }
+
+    // on supprime la diagonale correspondante
+    if (diagonaleDroite) {
+        for (unsigned i = 0; i < howMany; ++i)
+            grid[position.ord + i][position.abs + i] = KImpossible;
+    } else {
+        for (unsigned i = 0; i < howMany; ++i)
+            grid[position.ord + i][position.abs - i] = KImpossible;
+    }
+}
+
+
+// fonction qui permet de recharger la grille
 void refillGrid(mat & grid) {
     for (size_t i = 0; i < grid.size(); ++i) {
         auto it = find(grid[i].begin(), grid[i].end(), KImpossible);
@@ -178,7 +271,7 @@ void refillGrid(mat & grid) {
         }
     }
 }
-
+// fonction qui permet d'enlever tout les combots lorsque la grille se charge initialement afin d'éviter de gagner des points sans rien faire
 void removalAllCombos(mat & grid, maPosition & position, unsigned howMany, unsigned & score, unsigned & NbCoups) {
     unsigned nbCombos(0);
     bool combo;
@@ -195,7 +288,7 @@ void removalAllCombos(mat & grid, maPosition & position, unsigned howMany, unsig
             cout << "Combo x" << nbCombos << endl;
             cout << "+" << valeurAAjouter << " Score :" << score << endl;
             if (nbCombos != 0 && nbCombos%3 == 0) {NbCoups += nbCombos/3; cout << "+ " << nbCombos/3 << " coup(s) !";}
-            this_thread::sleep_for(chrono::milliseconds(1000)); //sur internet
+            this_thread::sleep_for(chrono::milliseconds(1000)); // trouvé sur https://en.cppreference.com/w/cpp/thread/sleep_for.html
         }
         if (atLeastThreeInARow(grid, position, howMany)) {
             ++nbCombos;
@@ -209,12 +302,31 @@ void removalAllCombos(mat & grid, maPosition & position, unsigned howMany, unsig
             if (nbCombos != 0 && nbCombos%3 == 0) {NbCoups += nbCombos/3; cout << "+ " << nbCombos/3 << " coups !";}
             this_thread::sleep_for(chrono::milliseconds(1000)); //sur internet
         }
+        if (atLeastThreeInDiagonal(grid, position, howMany)) {
+            ++nbCombos;
+            valeurAAjouter = howMany * grid[position.ord][position.abs] * nbCombos;
+            score += valeurAAjouter;
+
+            removalInDiagonal(grid, position, howMany);
+            combo = true;
+
+            displayGrid(grid);
+            cout << "Combo x" << nbCombos << endl;
+            cout << "+" << valeurAAjouter << " Score :" << score << endl;
+
+            if (nbCombos != 0 && nbCombos % 3 == 0) {
+                NbCoups += nbCombos / 3;
+                cout << "+ " << nbCombos / 3 << " coups !";
+            }
+
+            this_thread::sleep_for(chrono::milliseconds(1000));
+        }
         refillGrid(grid);
     } while (combo); // utilisation de do .. while pour executer la boucle au moins une fois
 }
 
 // histoire
-
+// fonction qui permet d'afficher les cinématiques pour le mode histoire
 void cinematique(const string & texte, unsigned vitesse) {
     couleur(KJaune);
     for (char c : texte) {
@@ -224,7 +336,7 @@ void cinematique(const string & texte, unsigned vitesse) {
     cout << endl << endl;
     this_thread::sleep_for(chrono::seconds(1));
 }
-
+// fonction qui permet d'afficher le boss lors du mode histoire
 void afficherBoss(const string & nom) {
     clearScreen();
     couleur(KRouge);
@@ -234,3 +346,5 @@ void afficherBoss(const string & nom) {
     couleur(KReset);
     this_thread::sleep_for(chrono::seconds(2));
 }
+
+

@@ -1,0 +1,7 @@
+Pour déplacer un chiffre sur la grille il faut entrer l'abscisse suivi l'ordonnées puis la direction(zqsd).
+Règle mode facile: Ce mode est le plus simple, pour faire un combo il suffit d'aligner verticalement ou horizontalement 3 chiffres (6 disponibles) et pour gagner il faut atteindre un score de 50 en moins de 12 coups.
+Règle mode normal: Ce mode est le mode de base, pour faire un combo il suffit d'aligner verticalement ou horizontalement 3 chiffres (9 disponibles) et pour gagner il faut atteindre un score de 100 en moins de 11 coups.
+Règle mode difficile: Ce mode est plutôt difficile, pour faire un combo il suffit d'aligner verticalement ou horizontalement 4 chiffres (8 disponibles) et pour gagner il faut atteindre un score de 200 en moins de 15 coups.
+Règle mode très difficile: Ce mode est plutôt difficile, pour faire un combo il suffit d'aligner verticalement ou horizontalement 4 chiffres (9 disponibles) et pour gagner il faut atteindre un score de 400 en moins de 22 coups.
+Règle mode histoire: Dans ce mode vous allez enchainer les modes précédent tout en suivant une histoire.
+Règle mode extrême: Ce mode est le plus difficile, pour faire un combo il suffit d'aligner verticalement ou horizontalement 4 chiffres (15 disponibles) et pour gagner il faut atteindre un score de 1000 en moins de 50 coups.
