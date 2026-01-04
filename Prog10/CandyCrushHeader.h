@@ -27,18 +27,59 @@ extern const unsigned KReset, KRouge, KJaune, KCyan;
 extern unsigned KNbCandies, nbAAlignee, scoreAObtenir;
 
 // Prototypes des fonctions
+/**
+ * @brief permet d'effacer le contenu du terminal
+ */
 void clearScreen();
+/**
+ * @brief permet d'attribuer une couleur spécifique à chaque chiffre
+ */
 void couleur(const unsigned & coul);
+/**
+ * @brief permet d'initialiser la grille
+ */
 void initGrid(mat & grid, const size_t & matSize);
+/**
+ * @brief permet d'afficher la grille
+ */
 void displayGrid(const mat & grid);
+/**
+ * @brief permet au joueur d'effectuer un déplacement
+ */
 void makeAMove(mat & grid, const maPosition & pos, const char & direction);
+/**
+ * @brief permet de trouver les combos en colonne
+ */
 bool atLeastThreeInAColumn(const mat & grid, maPosition & pos, unsigned & howMany);
+/**
+ * @brief permet de trouver les combos en ligne
+ */
 bool atLeastThreeInARow(const mat & grid, maPosition & pos, unsigned & howMany);
+/**
+ * @brief permet de gérer la suppression de chiffre verticalement
+ */
 void removalInColumn(mat & grid, const maPosition & pos, unsigned howMany);
+/**
+ * @brief permet de gérer la suppression de chiffre horizontalement
+ */
 void removalInRow(mat & grid, const maPosition & pos, unsigned howMany);
+/**
+ * @brief permet de recharger la grille
+ */
 void refillGrid(mat & grid);
+/**
+ * @brief permet d'enlever tous les combos initialement afin d'éviter que le joueur gagne des points sans avoir jouer
+ */
 void removalAllCombos(mat & grid, maPosition & position, unsigned howMany, unsigned & score, unsigned & NbCoups);
+/**
+ * @brief permet d'afficher une cinématique
+ */
 void cinematique(const std::string & texte, unsigned vitesse = 50);
+/**
+ * @brief permet d'afficher un boss
+ */
 void afficherBoss(const std::string & nom);
 
+
 #endif // CANDYCRUSHHEADER_H
+
