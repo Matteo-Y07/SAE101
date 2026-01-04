@@ -283,7 +283,7 @@ void removalAllCombos(mat & grid, maPosition & position, unsigned howMany, unsig
             cout << "Combo x" << nbCombos << endl;
             cout << "+" << valeurAAjouter << " Score :" << score << endl;
             if (nbCombos != 0 && nbCombos%3 == 0) {NbCoups += nbCombos/3; cout << "+ " << nbCombos/3 << " coups !";}
-            this_thread::sleep_for(chrono::milliseconds(1000)); //sur internet
+            this_thread::sleep_for(chrono::milliseconds(1000));
         }
         if (atLeastThreeInDiagonal(grid, position, howMany, diagDroite)) {
             ++nbCombos;
@@ -296,12 +296,7 @@ void removalAllCombos(mat & grid, maPosition & position, unsigned howMany, unsig
             displayGrid(grid);
             cout << "Combo x" << nbCombos << endl;
             cout << "+" << valeurAAjouter << " Score :" << score << endl;
-
-            if (nbCombos != 0 && nbCombos % 3 == 0) {
-                NbCoups += nbCombos / 3;
-                cout << "+ " << nbCombos / 3 << " coups !";
-            }
-
+            if (nbCombos != 0 && nbCombos % 3 == 0) {NbCoups += nbCombos / 3; cout << "+ " << nbCombos / 3 << " coups !";}
             this_thread::sleep_for(chrono::milliseconds(1000));
         }
         refillGrid(grid);

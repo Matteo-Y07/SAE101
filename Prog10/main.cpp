@@ -20,7 +20,7 @@ int main() {
     unsigned nbCoupsJoues(0), score(0), NbCoups(0), howMany(0);
     bool diagDroite;
 
-    cout << "Quel mode de jeu preferez vous ? \n 1- Facile \n 2- Normal \n 3- Difficile \n 4- Tres difficile \n 5- Mode histoire \n 6- Extreme \n 7- Mode histoire 2 \n 0- informations sur les modes de jeu \n Appuyez sur n'importe quelle autre touche pour quitter" << endl;
+    cout << "Quel mode de jeu preferez vous ? \n 1- Facile \n 2- Normal \n 3- Difficile \n 4- Tres difficile \n 5- Mode histoire \n 6- Extreme \n 7- Mode histoire 2 \n Appuyez sur n'importe quelle autre touche pour quitter" << endl;
     unsigned int modeDeJeu;
     cin >> modeDeJeu;
 
@@ -65,8 +65,8 @@ int main() {
             {"LE DEMON CASALI", "Le chiffre 1 : 'Tout s'arrete ici. La SAE prend fin... MAINTENANT !'", 9, 4, 1000, 8}
         };
 
-        cinematique("Le Chiffre 1 regarde ses freres mourir dans la grille...", 70);
-        cinematique("La democratie a echoue. Place a la REVOLUTION.", 70);
+        cinematique("Le Chiffre 1 regarde ses freres mourir dans la grille...", 40);
+        cinematique("La democratie a echoue. Place a la REVOLUTION.", 40);
 
         for (const auto& etape : campagne) {
             afficherBoss(etape.nomBoss);
@@ -81,7 +81,7 @@ int main() {
 
             while (true) {
                 initGrid(grid, 8);
-                if (!(atLeastThreeInAColumn(grid, position, howMany) || atLeastThreeInARow(grid, position, howMany))) break;
+                if (!(atLeastThreeInAColumn(grid, position, howMany) || atLeastThreeInARow(grid, position, howMany) || atLeastThreeInDiagonal(grid, position, howMany, diagDroite))) break;
             }
 
             while (nbCoupsJoues < NbCoups && scoreNiveau < scoreAObtenir) {
@@ -123,7 +123,7 @@ int main() {
 
         for (const auto& etape : campagne) {
             afficherBoss(etape.nomBoss);
-            cinematique(etape.dialogue, 100);
+            cinematique(etape.dialogue, 40);
 
             KNbCandies = etape.nbCandies;
             nbAAlignee = etape.alignementRequis;
@@ -134,7 +134,7 @@ int main() {
 
             while (true) {
                 initGrid(grid, 8);
-                if (!(atLeastThreeInAColumn(grid, position, howMany) || atLeastThreeInARow(grid, position, howMany))) break;
+                if (!(atLeastThreeInAColumn(grid, position, howMany) || atLeastThreeInARow(grid, position, howMany) || atLeastThreeInDiagonal(grid, position, howMany, diagDroite))) break;
             }
 
             while (nbCoupsJoues < NbCoups && scoreNiveau < scoreAObtenir) {
