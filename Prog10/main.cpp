@@ -1,3 +1,9 @@
+/**
+ * @file main.cpp
+ * @author Gabriel Gouin
+ * @author Matteo Yanni
+*/
+
 #include "CandyCrushHeader.h"
 #include <iostream>
 #include <vector>
