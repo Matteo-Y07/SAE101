@@ -2,6 +2,7 @@
  * @file CandyCrushHeader.cpp
  * @author Gabriel Gouin
  * @author Matteo Yanni
+ * @brief fichier avec le contenu des différentes fonctions
 */
 
 #include "CandyCrushHeader.h"
@@ -324,5 +325,6 @@ void afficherBoss(const string & nom) {
     couleur(KReset);
     this_thread::sleep_for(chrono::seconds(2));
 }
+
 
 
