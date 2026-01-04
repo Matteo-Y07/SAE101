@@ -1,0 +1,325 @@
+\doxysection{Candy\+Crush\+Header.\+cpp File Reference}
+\hypertarget{_candy_crush_header_8cpp}{}\label{_candy_crush_header_8cpp}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+{\ttfamily \#include "{}Candy\+Crush\+Header.\+h"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+Include dependency graph for Candy\+Crush\+Header.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_candy_crush_header_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef vector$<$ unsigned $>$ \mbox{\hyperlink{_candy_crush_header_8cpp_a4933e286520b3b8b86b2b7f27fd1959c}{line}}
+\item 
+typedef vector$<$ \mbox{\hyperlink{_candy_crush_header_8cpp_a4933e286520b3b8b86b2b7f27fd1959c}{line}} $>$ \mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_candy_crush_header_8cpp_a9d7e8af417b6d543da691e9c0e2f6f9f}{clear\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em permet d\textquotesingle{}effacer le contenu du terminal \end{DoxyCompactList}\item 
+const unsigned \mbox{\hyperlink{_candy_crush_header_8cpp_a63a18a31ab7815ab0d4eb5c133e5d1a5}{KReset}} (0)
+\item 
+const unsigned \mbox{\hyperlink{_candy_crush_header_8cpp_a2ce1342a3c5061b4504256f7ac7cfda6}{KNoir}} (30)
+\item 
+const unsigned \mbox{\hyperlink{_candy_crush_header_8cpp_a87aab004c1c22814beb8db1ddaa9f628}{KRouge}} (31)
+\item 
+const unsigned \mbox{\hyperlink{_candy_crush_header_8cpp_a72260f87613d24d0cd1e7c8f646ca5f5}{KVert}} (32)
+\item 
+const unsigned \mbox{\hyperlink{_candy_crush_header_8cpp_a1b010b9694f3acc35b02b0a667d99094}{KJaune}} (33)
+\item 
+const unsigned \mbox{\hyperlink{_candy_crush_header_8cpp_a587a099b5228e39c74a525cb4ac5d786}{KBleu}} (34)
+\item 
+const unsigned \mbox{\hyperlink{_candy_crush_header_8cpp_a1295d80e3fdb251b7969f86740392db4}{KMAgenta}} (35)
+\item 
+const unsigned \mbox{\hyperlink{_candy_crush_header_8cpp_aed31d4db92c112edda1291acad69dd00}{KCyan}} (36)
+\item 
+const unsigned \mbox{\hyperlink{_candy_crush_header_8cpp_a18efe58b5b918621584c2029144b1756}{KImpossible}} (0)
+\item 
+const string \mbox{\hyperlink{_candy_crush_header_8cpp_a70f062c587464600bfac61caf57ed05e}{KSymboles}} ("{}0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"{})
+\item 
+void \mbox{\hyperlink{_candy_crush_header_8cpp_ae241cf89d39423f89bb8e65688e4c031}{couleur}} (const unsigned \&coul)
+\begin{DoxyCompactList}\small\item\em permet d\textquotesingle{}attribuer une couleur spécifique à chaque chiffre \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_candy_crush_header_8cpp_ae3b5273047fa3136bc193f8b83f10ffd}{couleur\+Fond}} (const unsigned \&coul)
+\item 
+void \mbox{\hyperlink{_candy_crush_header_8cpp_a4451b6adfa9974f79ef15963a4e0c6cc}{init\+Grid}} (\mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&grid, const size\+\_\+t \&mat\+Size)
+\begin{DoxyCompactList}\small\item\em permet d\textquotesingle{}initialiser la grille \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_candy_crush_header_8cpp_ac0aacda61353cef121ada8614de65a16}{display\+Grid}} (const \mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&grid)
+\begin{DoxyCompactList}\small\item\em permet d\textquotesingle{}afficher la grille \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_candy_crush_header_8cpp_a128c26fbda3f47062ea1ab56e54ae54d}{make\+AMove}} (\mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&grid, const \mbox{\hyperlink{structma_position}{ma\+Position}} \&pos, const char \&direction)
+\begin{DoxyCompactList}\small\item\em permet au joueur d\textquotesingle{}effectuer un déplacement \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_candy_crush_header_8cpp_aee7483c5715afce5b8d044329f2d9fdb}{at\+Least\+Three\+In\+AColumn}} (const \mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&grid, \mbox{\hyperlink{structma_position}{ma\+Position}} \&pos, unsigned \&how\+Many)
+\begin{DoxyCompactList}\small\item\em permet de trouver les combos en colonne \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_candy_crush_header_8cpp_a592d3742cedb5bd0462cc8ebe9e79131}{at\+Least\+Three\+In\+ARow}} (const \mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&grid, \mbox{\hyperlink{structma_position}{ma\+Position}} \&pos, unsigned \&how\+Many)
+\begin{DoxyCompactList}\small\item\em permet de trouver les combos en ligne \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_candy_crush_header_8cpp_a4ad87ec3a96e07ac5000e8e4e38ece6f}{removal\+In\+Column}} (\mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&grid, const \mbox{\hyperlink{structma_position}{ma\+Position}} \&pos, unsigned how\+Many)
+\begin{DoxyCompactList}\small\item\em permet de gérer la suppression de chiffre verticalement \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_candy_crush_header_8cpp_a4e37bf8b2ef1042c1631bf9d394ebd0d}{removal\+In\+Row}} (\mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&grid, const \mbox{\hyperlink{structma_position}{ma\+Position}} \&pos, unsigned how\+Many)
+\begin{DoxyCompactList}\small\item\em permet de gérer la suppression de chiffre horizontalement \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_candy_crush_header_8cpp_a0ae12bcad50ec7e8d1bf1f0dc2c82e54}{refill\+Grid}} (\mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&grid)
+\begin{DoxyCompactList}\small\item\em permet de recharger la grille \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_candy_crush_header_8cpp_a553b3b7d171a5ffe67d5bcf4f693d1e2}{removal\+All\+Combos}} (\mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&grid, \mbox{\hyperlink{structma_position}{ma\+Position}} \&position, unsigned how\+Many, unsigned \&score, unsigned \&Nb\+Coups)
+\begin{DoxyCompactList}\small\item\em permet d\textquotesingle{}enlever tous les combos initialement afin d\textquotesingle{}éviter que le joueur gagne des points sans avoir jouer \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_candy_crush_header_8cpp_a05203c5938815d456efabe3535f1c2d9}{cinematique}} (const string \&texte, unsigned vitesse)
+\item 
+void \mbox{\hyperlink{_candy_crush_header_8cpp_ad4b57d15bf7c9e7b52addc2d53353aab}{afficher\+Boss}} (const string \&nom)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int unsigned \mbox{\hyperlink{_candy_crush_header_8cpp_a7a8e863a6afb3088a6e5973717c75e3a}{KNb\+Candies}}
+\item 
+int unsigned \mbox{\hyperlink{_candy_crush_header_8cpp_a4dfbe0e4b3689dabf73a69a7e50b458e}{nb\+AAlignee}}
+\item 
+int unsigned \mbox{\hyperlink{_candy_crush_header_8cpp_a636f83037491dcf5509d0780a989a42a}{score\+AObtenir}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Gabriel Gouin 
+
+Matteo Yanni 
+\end{DoxyAuthor}
+
+
+\label{doc-typedef-members}
+\Hypertarget{_candy_crush_header_8cpp_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{_candy_crush_header_8cpp_a4933e286520b3b8b86b2b7f27fd1959c}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!line@{line}}
+\index{line@{line}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{line}{line}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a4933e286520b3b8b86b2b7f27fd1959c} 
+typedef vector$<$unsigned$>$ \mbox{\hyperlink{_candy_crush_header_8cpp_a4933e286520b3b8b86b2b7f27fd1959c}{line}}}
+
+\Hypertarget{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!mat@{mat}}
+\index{mat@{mat}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{mat}{mat}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24} 
+typedef vector$<$\mbox{\hyperlink{_candy_crush_header_8cpp_a4933e286520b3b8b86b2b7f27fd1959c}{line}}$>$ \mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{_candy_crush_header_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_candy_crush_header_8cpp_ad4b57d15bf7c9e7b52addc2d53353aab}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!afficherBoss@{afficherBoss}}
+\index{afficherBoss@{afficherBoss}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{afficherBoss()}{afficherBoss()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_ad4b57d15bf7c9e7b52addc2d53353aab} 
+void afficher\+Boss (\begin{DoxyParamCaption}\item[{const string \&}]{nom}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_candy_crush_header_8cpp_aee7483c5715afce5b8d044329f2d9fdb}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!atLeastThreeInAColumn@{atLeastThreeInAColumn}}
+\index{atLeastThreeInAColumn@{atLeastThreeInAColumn}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{atLeastThreeInAColumn()}{atLeastThreeInAColumn()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_aee7483c5715afce5b8d044329f2d9fdb} 
+bool at\+Least\+Three\+In\+AColumn (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&}]{grid}{, }\item[{\mbox{\hyperlink{structma_position}{ma\+Position}} \&}]{pos}{, }\item[{unsigned \&}]{how\+Many}{}\end{DoxyParamCaption})}
+
+
+
+permet de trouver les combos en colonne 
+
+\Hypertarget{_candy_crush_header_8cpp_a592d3742cedb5bd0462cc8ebe9e79131}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!atLeastThreeInARow@{atLeastThreeInARow}}
+\index{atLeastThreeInARow@{atLeastThreeInARow}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{atLeastThreeInARow()}{atLeastThreeInARow()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a592d3742cedb5bd0462cc8ebe9e79131} 
+bool at\+Least\+Three\+In\+ARow (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&}]{grid}{, }\item[{\mbox{\hyperlink{structma_position}{ma\+Position}} \&}]{pos}{, }\item[{unsigned \&}]{how\+Many}{}\end{DoxyParamCaption})}
+
+
+
+permet de trouver les combos en ligne 
+
+\Hypertarget{_candy_crush_header_8cpp_a05203c5938815d456efabe3535f1c2d9}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!cinematique@{cinematique}}
+\index{cinematique@{cinematique}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{cinematique()}{cinematique()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a05203c5938815d456efabe3535f1c2d9} 
+void cinematique (\begin{DoxyParamCaption}\item[{const string \&}]{texte}{, }\item[{unsigned}]{vitesse}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_candy_crush_header_8cpp_a9d7e8af417b6d543da691e9c0e2f6f9f}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!clearScreen@{clearScreen}}
+\index{clearScreen@{clearScreen}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{clearScreen()}{clearScreen()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a9d7e8af417b6d543da691e9c0e2f6f9f} 
+void clear\+Screen (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+permet d\textquotesingle{}effacer le contenu du terminal 
+
+\Hypertarget{_candy_crush_header_8cpp_ae241cf89d39423f89bb8e65688e4c031}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!couleur@{couleur}}
+\index{couleur@{couleur}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{couleur()}{couleur()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_ae241cf89d39423f89bb8e65688e4c031} 
+void couleur (\begin{DoxyParamCaption}\item[{const unsigned \&}]{coul}{}\end{DoxyParamCaption})}
+
+
+
+permet d\textquotesingle{}attribuer une couleur spécifique à chaque chiffre 
+
+\Hypertarget{_candy_crush_header_8cpp_ae3b5273047fa3136bc193f8b83f10ffd}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!couleurFond@{couleurFond}}
+\index{couleurFond@{couleurFond}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{couleurFond()}{couleurFond()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_ae3b5273047fa3136bc193f8b83f10ffd} 
+void couleur\+Fond (\begin{DoxyParamCaption}\item[{const unsigned \&}]{coul}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_candy_crush_header_8cpp_ac0aacda61353cef121ada8614de65a16}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!displayGrid@{displayGrid}}
+\index{displayGrid@{displayGrid}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{displayGrid()}{displayGrid()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_ac0aacda61353cef121ada8614de65a16} 
+void display\+Grid (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&}]{grid}{}\end{DoxyParamCaption})}
+
+
+
+permet d\textquotesingle{}afficher la grille 
+
+\Hypertarget{_candy_crush_header_8cpp_a4451b6adfa9974f79ef15963a4e0c6cc}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!initGrid@{initGrid}}
+\index{initGrid@{initGrid}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{initGrid()}{initGrid()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a4451b6adfa9974f79ef15963a4e0c6cc} 
+void init\+Grid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&}]{grid}{, }\item[{const size\+\_\+t \&}]{mat\+Size}{}\end{DoxyParamCaption})}
+
+
+
+permet d\textquotesingle{}initialiser la grille 
+
+\Hypertarget{_candy_crush_header_8cpp_a587a099b5228e39c74a525cb4ac5d786}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!KBleu@{KBleu}}
+\index{KBleu@{KBleu}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{KBleu()}{KBleu()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a587a099b5228e39c74a525cb4ac5d786} 
+const unsigned KBleu (\begin{DoxyParamCaption}\item[{34}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_candy_crush_header_8cpp_aed31d4db92c112edda1291acad69dd00}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!KCyan@{KCyan}}
+\index{KCyan@{KCyan}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{KCyan()}{KCyan()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_aed31d4db92c112edda1291acad69dd00} 
+const unsigned KCyan (\begin{DoxyParamCaption}\item[{36}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_candy_crush_header_8cpp_a18efe58b5b918621584c2029144b1756}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!KImpossible@{KImpossible}}
+\index{KImpossible@{KImpossible}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{KImpossible()}{KImpossible()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a18efe58b5b918621584c2029144b1756} 
+const unsigned KImpossible (\begin{DoxyParamCaption}\item[{0}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_candy_crush_header_8cpp_a1b010b9694f3acc35b02b0a667d99094}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!KJaune@{KJaune}}
+\index{KJaune@{KJaune}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{KJaune()}{KJaune()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a1b010b9694f3acc35b02b0a667d99094} 
+const unsigned KJaune (\begin{DoxyParamCaption}\item[{33}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_candy_crush_header_8cpp_a1295d80e3fdb251b7969f86740392db4}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!KMAgenta@{KMAgenta}}
+\index{KMAgenta@{KMAgenta}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{KMAgenta()}{KMAgenta()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a1295d80e3fdb251b7969f86740392db4} 
+const unsigned KMAgenta (\begin{DoxyParamCaption}\item[{35}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_candy_crush_header_8cpp_a2ce1342a3c5061b4504256f7ac7cfda6}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!KNoir@{KNoir}}
+\index{KNoir@{KNoir}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{KNoir()}{KNoir()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a2ce1342a3c5061b4504256f7ac7cfda6} 
+const unsigned KNoir (\begin{DoxyParamCaption}\item[{30}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_candy_crush_header_8cpp_a63a18a31ab7815ab0d4eb5c133e5d1a5}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!KReset@{KReset}}
+\index{KReset@{KReset}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{KReset()}{KReset()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a63a18a31ab7815ab0d4eb5c133e5d1a5} 
+const unsigned KReset (\begin{DoxyParamCaption}\item[{0}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_candy_crush_header_8cpp_a87aab004c1c22814beb8db1ddaa9f628}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!KRouge@{KRouge}}
+\index{KRouge@{KRouge}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{KRouge()}{KRouge()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a87aab004c1c22814beb8db1ddaa9f628} 
+const unsigned KRouge (\begin{DoxyParamCaption}\item[{31}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_candy_crush_header_8cpp_a70f062c587464600bfac61caf57ed05e}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!KSymboles@{KSymboles}}
+\index{KSymboles@{KSymboles}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{KSymboles()}{KSymboles()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a70f062c587464600bfac61caf57ed05e} 
+const string KSymboles (\begin{DoxyParamCaption}\item[{"{}0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"{}}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_candy_crush_header_8cpp_a72260f87613d24d0cd1e7c8f646ca5f5}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!KVert@{KVert}}
+\index{KVert@{KVert}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{KVert()}{KVert()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a72260f87613d24d0cd1e7c8f646ca5f5} 
+const unsigned KVert (\begin{DoxyParamCaption}\item[{32}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_candy_crush_header_8cpp_a128c26fbda3f47062ea1ab56e54ae54d}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!makeAMove@{makeAMove}}
+\index{makeAMove@{makeAMove}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{makeAMove()}{makeAMove()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a128c26fbda3f47062ea1ab56e54ae54d} 
+void make\+AMove (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&}]{grid}{, }\item[{const \mbox{\hyperlink{structma_position}{ma\+Position}} \&}]{pos}{, }\item[{const char \&}]{direction}{}\end{DoxyParamCaption})}
+
+
+
+permet au joueur d\textquotesingle{}effectuer un déplacement 
+
+\Hypertarget{_candy_crush_header_8cpp_a0ae12bcad50ec7e8d1bf1f0dc2c82e54}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!refillGrid@{refillGrid}}
+\index{refillGrid@{refillGrid}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{refillGrid()}{refillGrid()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a0ae12bcad50ec7e8d1bf1f0dc2c82e54} 
+void refill\+Grid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&}]{grid}{}\end{DoxyParamCaption})}
+
+
+
+permet de recharger la grille 
+
+\Hypertarget{_candy_crush_header_8cpp_a553b3b7d171a5ffe67d5bcf4f693d1e2}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!removalAllCombos@{removalAllCombos}}
+\index{removalAllCombos@{removalAllCombos}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{removalAllCombos()}{removalAllCombos()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a553b3b7d171a5ffe67d5bcf4f693d1e2} 
+void removal\+All\+Combos (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&}]{grid}{, }\item[{\mbox{\hyperlink{structma_position}{ma\+Position}} \&}]{position}{, }\item[{unsigned}]{how\+Many}{, }\item[{unsigned \&}]{score}{, }\item[{unsigned \&}]{Nb\+Coups}{}\end{DoxyParamCaption})}
+
+
+
+permet d\textquotesingle{}enlever tous les combos initialement afin d\textquotesingle{}éviter que le joueur gagne des points sans avoir jouer 
+
+\Hypertarget{_candy_crush_header_8cpp_a4ad87ec3a96e07ac5000e8e4e38ece6f}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!removalInColumn@{removalInColumn}}
+\index{removalInColumn@{removalInColumn}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{removalInColumn()}{removalInColumn()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a4ad87ec3a96e07ac5000e8e4e38ece6f} 
+void removal\+In\+Column (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&}]{grid}{, }\item[{const \mbox{\hyperlink{structma_position}{ma\+Position}} \&}]{pos}{, }\item[{unsigned}]{how\+Many}{}\end{DoxyParamCaption})}
+
+
+
+permet de gérer la suppression de chiffre verticalement 
+
+\Hypertarget{_candy_crush_header_8cpp_a4e37bf8b2ef1042c1631bf9d394ebd0d}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!removalInRow@{removalInRow}}
+\index{removalInRow@{removalInRow}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{removalInRow()}{removalInRow()}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a4e37bf8b2ef1042c1631bf9d394ebd0d} 
+void removal\+In\+Row (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_candy_crush_header_8cpp_aee710f500ed8d179390ae3862af69d24}{mat}} \&}]{grid}{, }\item[{const \mbox{\hyperlink{structma_position}{ma\+Position}} \&}]{pos}{, }\item[{unsigned}]{how\+Many}{}\end{DoxyParamCaption})}
+
+
+
+permet de gérer la suppression de chiffre horizontalement 
+
+
+
+\label{doc-var-members}
+\Hypertarget{_candy_crush_header_8cpp_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{_candy_crush_header_8cpp_a7a8e863a6afb3088a6e5973717c75e3a}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!KNbCandies@{KNbCandies}}
+\index{KNbCandies@{KNbCandies}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{KNbCandies}{KNbCandies}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a7a8e863a6afb3088a6e5973717c75e3a} 
+int unsigned KNb\+Candies}
+
+\Hypertarget{_candy_crush_header_8cpp_a4dfbe0e4b3689dabf73a69a7e50b458e}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!nbAAlignee@{nbAAlignee}}
+\index{nbAAlignee@{nbAAlignee}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{nbAAlignee}{nbAAlignee}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a4dfbe0e4b3689dabf73a69a7e50b458e} 
+int unsigned nb\+AAlignee}
+
+\Hypertarget{_candy_crush_header_8cpp_a636f83037491dcf5509d0780a989a42a}\index{CandyCrushHeader.cpp@{CandyCrushHeader.cpp}!scoreAObtenir@{scoreAObtenir}}
+\index{scoreAObtenir@{scoreAObtenir}!CandyCrushHeader.cpp@{CandyCrushHeader.cpp}}
+\doxysubsubsection{\texorpdfstring{scoreAObtenir}{scoreAObtenir}}
+{\footnotesize\ttfamily \label{_candy_crush_header_8cpp_a636f83037491dcf5509d0780a989a42a} 
+int unsigned score\+AObtenir}
+
